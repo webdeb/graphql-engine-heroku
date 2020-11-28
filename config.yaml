@@ -1,0 +1,3 @@
+version: 2
+endpoint: http://hasura-issue-6255.herokuapp.com
+metadata_directory: metadata

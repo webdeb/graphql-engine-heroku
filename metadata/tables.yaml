@@ -1,0 +1,59 @@
+- table:
+    schema: public
+    name: image
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        user_id: x-hasura-user-id
+      columns:
+      - url
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - url
+      filter: {}
+      allow_aggregations: true
+- table:
+    schema: public
+    name: post
+  object_relationships:
+  - name: image
+    using:
+      foreign_key_constraint_on: image_id
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        user_id: x-hasura-user-id
+      columns:
+      - content
+      - id
+      - title
+      backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - id
+      - content
+      - title
+      - image_id
+      filter: {}
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - content
+      - id
+      - image_id
+      - title
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
